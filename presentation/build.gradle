@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
@@ -9,6 +10,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
     }
     buildTypes {
         release {
@@ -16,12 +23,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
-
+    def developmentDependencies = rootProject.ext.developmentDependencies
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.0'
@@ -29,9 +38,26 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //dagger dependencies
     implementation presentationDependencies.dagger
-    implementation presentationDependencies.daggerCompiler
     implementation presentationDependencies.daggerSupport
+    implementation presentationDependencies.daggerAndroid
+
+    annotationProcessor presentationDependencies.daggerCompiler
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+    //dagger dependencies
+
+    //com.todo.data.net dependencies
+    implementation presentationDependencies.okhttp
+    implementation presentationDependencies.gson
+    implementation presentationDependencies.retrofit
+    implementation presentationDependencies.retrofitAdapterRxjava
+    implementation presentationDependencies.retrofitConverterGson
+    implementation presentationDependencies.okHttpInterceptor
+    //com.todo.data.net dependencies
+
+    implementation developmentDependencies.leakCanary
+    implementation developmentDependencies.timber
 
     implementation project(':data')
     implementation project(':domain')
