@@ -1,10 +1,8 @@
-package com.todo.presentation.di;
+package com.todo.data.net;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import com.todo.data.net.InvoiceApi;
 
 import javax.inject.Singleton;
 

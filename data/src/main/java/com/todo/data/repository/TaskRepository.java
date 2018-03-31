@@ -1,10 +1,11 @@
 package com.todo.data.repository;
 
+import com.todo.domain.Task;
 import com.todo.domain.repository.TaskRepositoryInterface;
 
-import io.reactivex.Completable;
+import java.util.List;
+
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 /**
  * Created by afp on 27/03/18.
@@ -12,26 +13,25 @@ import io.reactivex.Single;
 
 public class TaskRepository implements TaskRepositoryInterface {
 
-  public TaskRepository() {
-  }
-
   @Override
-  public Completable insertOrUpdate() {
+  public Observable<List<Task>> getTasks() {
     return null;
   }
 
   @Override
-  public Completable delete() {
+  public Observable<Task> getTask(int taskId) {
     return null;
   }
 
   @Override
-  public Single findTaskById() {
+  public Observable<List<Task>> search(String keyword) {
     return null;
   }
 
   @Override
-  public Observable getTasks() {
+  public Observable<Task> post(Task task) {
     return null;
   }
 }
+
+

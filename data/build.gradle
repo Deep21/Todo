@@ -24,13 +24,30 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
-    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation dataDependencies.rxjava
+    implementation dataDependencies.rxandroid
+    implementation dataDependencies.javax
+
+    implementation dataDependencies.dagger
+    implementation dataDependencies.daggerSupport
+    implementation dataDependencies.daggerAndroid
+    annotationProcessor dataDependencies.daggerCompiler
+    annotationProcessor dataDependencies.daggerAndroidProcessor
+
+    //net dependencies
+    implementation dataDependencies.okhttp
+    implementation dataDependencies.gson
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitAdapterRxjava
+    implementation dataDependencies.okHttpInterceptor
+    implementation dataDependencies.retrofitConverterGson
+    //net dependencies
+
     implementation project(':domain')
 }

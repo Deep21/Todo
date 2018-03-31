@@ -1,6 +1,8 @@
 package com.todo.presentation.di;
 
 
+import com.todo.data.net.NetModule;
+
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;

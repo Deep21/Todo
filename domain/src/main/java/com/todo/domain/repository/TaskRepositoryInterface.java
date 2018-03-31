@@ -1,8 +1,10 @@
 package com.todo.domain.repository;
 
-import io.reactivex.Completable;
+import com.todo.domain.Task;
+
+import java.util.List;
+
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 /**
  * Created by afp on 27/03/18.
@@ -10,11 +12,24 @@ import io.reactivex.Single;
 
 public interface TaskRepositoryInterface {
 
-  Completable insertOrUpdate();
+  /**
+   * Get task
+   */
+  Observable<List<Task>> getTasks();
 
-  Completable delete();
+  /**
+   * Get single Task
+   */
+  Observable<Task> getTask(int taskId);
 
-  Single findTaskById();
+  /**
+   * Search task
+   */
+  Observable<List<Task>> search(String keyword);
 
-  Observable getTasks();
+  /**
+   * @param task
+   */
+   Observable<Task> post(Task task);
+
 }

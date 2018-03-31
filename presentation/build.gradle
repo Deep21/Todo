@@ -38,23 +38,24 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
     //dagger dependencies
     implementation presentationDependencies.dagger
     implementation presentationDependencies.daggerSupport
     implementation presentationDependencies.daggerAndroid
-
     annotationProcessor presentationDependencies.daggerCompiler
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+    annotationProcessor presentationDependencies.daggerAndroidProcessor
     //dagger dependencies
 
-    //com.todo.data.net dependencies
-    implementation presentationDependencies.okhttp
-    implementation presentationDependencies.gson
-    implementation presentationDependencies.retrofit
-    implementation presentationDependencies.retrofitAdapterRxjava
-    implementation presentationDependencies.retrofitConverterGson
-    implementation presentationDependencies.okHttpInterceptor
-    //com.todo.data.net dependencies
+    //net dependencies
+    implementation dataDependencies.okhttp
+    implementation dataDependencies.gson
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitAdapterRxjava
+    implementation dataDependencies.okHttpInterceptor
+    implementation dataDependencies.retrofitConverterGson
+    //net dependencies
+
 
     implementation developmentDependencies.leakCanary
     implementation developmentDependencies.timber
