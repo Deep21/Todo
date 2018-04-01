@@ -29,9 +29,6 @@ public interface InvoiceApi {
 
   @FormUrlEncoded
   @POST("task/search")
-  Flowable<List<Task>> search(@Field("search") String search);
+  Observable<List<Task>> search(@Field("search") String search);
 
-  @FormUrlEncoded
-  @POST("task/search")
-  Observable<List<Task>> searchs(@Field("search") String search);
 }

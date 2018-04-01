@@ -5,6 +5,8 @@ import com.todo.domain.repository.TaskRepositoryInterface;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -12,6 +14,10 @@ import io.reactivex.Observable;
  */
 
 public class TaskRepository implements TaskRepositoryInterface {
+
+  @Inject
+  public TaskRepository() {
+  }
 
   @Override
   public Observable<List<Task>> getTasks() {

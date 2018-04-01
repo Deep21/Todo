@@ -1,12 +1,9 @@
 package com.todo.presentation.di;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-
+import com.todo.data.repository.TaskModule;
 import com.todo.presentation.TaskListActivity;
 
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 /**
@@ -17,13 +14,8 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ActivityBindingsModule {
 
   @PerActivity
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = TaskModule.class)
   abstract TaskListActivity bindActivity();
 
 
-  @Provides
-  @PerActivity
-  static FragmentManager activityFragmentManager(FragmentActivity activity) {
-    return activity.getSupportFragmentManager();
-  }
 }
