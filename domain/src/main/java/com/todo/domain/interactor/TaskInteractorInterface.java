@@ -17,4 +17,5 @@ public interface TaskInteractorInterface<T> {
     Observable<T> post(T model);
   }
 
+
 }

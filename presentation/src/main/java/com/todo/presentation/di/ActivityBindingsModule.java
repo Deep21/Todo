@@ -1,7 +1,7 @@
 package com.todo.presentation.di;
 
 import com.todo.data.repository.TaskModule;
-import com.todo.presentation.TaskListActivity;
+import com.todo.presentation.view.TaskListActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

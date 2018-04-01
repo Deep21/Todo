@@ -11,6 +11,7 @@ import dagger.Module;
  */
 @Module
 public abstract class TaskModule {
+
     @Binds
-    abstract TaskRepositoryInterface taskPresenter(TaskRepository taskRepository);
+    abstract TaskRepositoryInterface taskRepository(TaskRepository taskRepository);
 }
