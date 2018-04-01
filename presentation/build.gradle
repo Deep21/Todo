@@ -47,15 +47,7 @@ dependencies {
     annotationProcessor presentationDependencies.daggerAndroidProcessor
     //dagger dependencies
 
-    //net dependencies
-    implementation dataDependencies.okhttp
-    implementation dataDependencies.gson
-    implementation dataDependencies.retrofit
-    implementation dataDependencies.retrofitAdapterRxjava
-    implementation dataDependencies.okHttpInterceptor
     implementation dataDependencies.retrofitConverterGson
-    //net dependencies
-
 
     implementation developmentDependencies.leakCanary
     implementation developmentDependencies.timber
