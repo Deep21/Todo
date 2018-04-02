@@ -1,4 +1,4 @@
-package viewmodel;
+package com.todo.presentation.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

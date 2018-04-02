@@ -27,6 +27,10 @@ android {
     dexOptions {
         javaMaxHeapSize "12g"
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -57,6 +61,11 @@ dependencies {
     implementation developmentDependencies.leakCanary
     implementation developmentDependencies.timber
 
+    implementation presentationDependencies.rxandroid
+    implementation presentationDependencies.rxjava
+
+
+    //modules loading
     implementation project(':data')
     implementation project(':domain')
 }

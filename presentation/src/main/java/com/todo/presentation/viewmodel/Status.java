@@ -1,4 +1,4 @@
-package viewmodel;
+package com.todo.presentation.viewmodel;
 
 /**
  * Created by Samfisher on 07/12/2017.

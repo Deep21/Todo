@@ -14,4 +14,5 @@ public abstract class TaskModule {
 
     @Binds
     abstract TaskRepositoryInterface taskRepository(TaskRepository taskRepository);
+
 }

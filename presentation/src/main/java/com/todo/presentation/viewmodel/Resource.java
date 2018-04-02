@@ -1,12 +1,12 @@
-package viewmodel;
+package com.todo.presentation.viewmodel;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static viewmodel.Status.EMPTY;
-import static viewmodel.Status.ERROR;
-import static viewmodel.Status.LOADING;
-import static viewmodel.Status.SUCCESS;
+import static com.todo.presentation.viewmodel.Status.EMPTY;
+import static com.todo.presentation.viewmodel.Status.ERROR;
+import static com.todo.presentation.viewmodel.Status.LOADING;
+import static com.todo.presentation.viewmodel.Status.SUCCESS;
 
 /**
  * Created by Samfisher on 07/12/2017.

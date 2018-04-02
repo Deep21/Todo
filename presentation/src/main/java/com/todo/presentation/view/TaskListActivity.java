@@ -10,10 +10,11 @@ import com.todo.presentation.R;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-import viewmodel.TaskViewModel;
-import viewmodel.TaskViewModelFactory;
+import com.todo.presentation.viewmodel.TaskViewModel;
+import com.todo.presentation.viewmodel.TaskViewModelFactory;
 
-public class TaskListActivity extends AppCompatActivity{
+public class TaskListActivity extends AppCompatActivity {
+
     @Inject TaskViewModelFactory taskViewModelFactory;
 
     @Override

@@ -51,8 +51,8 @@ ext {
             butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
             recyclerView:       "com.android.support:recyclerview-v7:${recyclerViewVersion}",
             cardView:           "com.android.support:cardview-v7:${cardviewVersion}",
-            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            rxjava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxandroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
     ]
 
     presentationTestDependencies = [
