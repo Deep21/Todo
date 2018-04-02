@@ -22,7 +22,6 @@ public class TaskViewModel extends ViewModel {
   private MutableLiveData<Resource<Throwable>> error = new MutableLiveData<>();
   private MediatorLiveData<Resource> contactsListMediatorLiveData;
 
-
   @Inject
   public TaskViewModel(TaskRetrieveInteractor taskInteractor) {
     this.taskInteractor = taskInteractor;

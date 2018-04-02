@@ -10,7 +10,6 @@ import com.todo.presentation.R;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-import timber.log.Timber;
 import viewmodel.TaskViewModel;
 import viewmodel.TaskViewModelFactory;
 
@@ -27,6 +26,8 @@ public class TaskListActivity extends AppCompatActivity{
     }
 
     public static TaskViewModel obtainViewModel(FragmentActivity activity, TaskViewModelFactory contactViewModelFactory) {
-        return ViewModelProviders.of(activity, contactViewModelFactory).get(TaskViewModel.class);
+        return ViewModelProviders
+                .of(activity, contactViewModelFactory)
+                .get(TaskViewModel.class);
     }
 }
