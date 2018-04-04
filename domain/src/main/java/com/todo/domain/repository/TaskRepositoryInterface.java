@@ -1,9 +1,7 @@
 package com.todo.domain.repository;
 
 import com.todo.domain.Task;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 
 /**

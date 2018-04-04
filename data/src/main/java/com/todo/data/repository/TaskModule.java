@@ -1,5 +1,8 @@
 package com.todo.data.repository;
 
+import com.todo.data.datasource.RemoteTaskDataStore;
+import com.todo.data.datasource.TaskDataStoreInterface;
+import com.todo.domain.Task;
 import com.todo.domain.repository.TaskRepositoryInterface;
 
 import dagger.Binds;
@@ -14,5 +17,8 @@ public abstract class TaskModule {
 
     @Binds
     abstract TaskRepositoryInterface taskRepository(TaskRepository taskRepository);
+
+    @Binds
+    abstract TaskDataStoreInterface taskDataStore(RemoteTaskDataStore remoteTaskDataStore);
 
 }

@@ -23,7 +23,7 @@ public class TaskDataStoreFactory {
     return new LocalTaskDataStore();
   }
 
-  public TaskRemoteDataStore<Task> create() {
+  public TaskDataStoreInterface create() {
     return new RemoteTaskDataStore(invoiceApi);
   }
 }

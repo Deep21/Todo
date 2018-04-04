@@ -4,17 +4,18 @@ package com.todo.data.datasource;
 import com.todo.data.entity.Task;
 import com.todo.data.net.InvoiceApi;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * Created by Samfisher on 09/01/2018.
  */
 
-public class RemoteTaskDataStore implements TaskRemoteDataStore<Task> {
+public class RemoteTaskDataStore implements TaskDataStoreInterface {
 
   private InvoiceApi invoiceApi;
 
