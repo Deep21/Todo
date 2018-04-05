@@ -3,7 +3,6 @@ apply plugin: 'realm-android'
 android {
     compileSdkVersion 27
 
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
@@ -21,6 +20,13 @@ android {
         }
     }
 
+    dexOptions {
+        javaMaxHeapSize "12g"
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
