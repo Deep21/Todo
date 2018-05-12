@@ -1,9 +1,10 @@
 apply plugin: 'java-library'
 
 dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation domainDependencies.rxandroid
     implementation domainDependencies.rxjava
-    implementation dataDependencies.retrofitConverterGson
+//  implementation domainDependencies.retrofitConverterGson
     implementation domainDependencies.javax
 }

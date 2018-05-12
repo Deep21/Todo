@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Samfisher on 11/01/2018.
  */
 
-public interface TaskInteractorInterface<T> {
+public interface ContactInteractorInterface<T> {
 
   Observable<List<T>> getList();
   Observable<T> get(int i);

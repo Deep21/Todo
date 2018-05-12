@@ -1,6 +1,6 @@
 package com.todo.presentation.di;
 
-import com.todo.data.repository.TaskModule;
+import com.todo.data.repository.ContactModule;
 import com.todo.presentation.view.TaskListActivity;
 
 import dagger.Module;
@@ -14,7 +14,7 @@ import dagger.android.ContributesAndroidInjector;
 abstract class ActivityBindingsModule {
 
   @PerActivity
-  @ContributesAndroidInjector(modules = TaskModule.class)
+  @ContributesAndroidInjector(modules = ContactModule.class)
   abstract TaskListActivity bindActivity();
 
 

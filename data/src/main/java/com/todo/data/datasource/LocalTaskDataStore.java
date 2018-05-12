@@ -22,8 +22,12 @@ import io.realm.RealmResults;
 
 public class LocalTaskDataStore implements TaskLocalDataStore<RealmTask> {
 
-  @Inject
-  public LocalTaskDataStore() {
+    private Realm realm;
+
+    @Inject
+  public LocalTaskDataStore(Realm realm)
+  {
+      this.realm = realm;
   }
 
   @Override
@@ -32,7 +36,7 @@ public class LocalTaskDataStore implements TaskLocalDataStore<RealmTask> {
   }
 
   public Observable<List<Task>> f() {
-    Realm realm = Realm.getDefaultInstance();
+
     RealmResults<RealmTask> contactRealmResults = realm.where(RealmTask.class).findAll();
     return Observable.fromIterable(realm.copyFromRealm(contactRealmResults))
         .map(new Function<RealmTask, List<Task>>() {

@@ -72,7 +72,6 @@ ext {
 
     domainDependencies = [
             rxjava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxandroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             gson:               "com.google.code.gson:gson:${gsonVersion}",
             javax:              "javax.inject:javax.inject:${javaxInjectVersion}",
     ]

@@ -6,6 +6,8 @@ import com.todo.data.net.InvoiceApi;
 
 import javax.inject.Inject;
 
+import io.realm.Realm;
+
 /**
  * Created by Samfisher on 09/01/2018.
  */
@@ -20,7 +22,7 @@ public class TaskDataStoreFactory {
   }
 
   public TaskLocalDataStore<RealmTask> createLocalStore() {
-    return new LocalTaskDataStore();
+    return new LocalTaskDataStore(Realm.getDefaultInstance());
   }
 
   public TaskDataStoreInterface create() {
