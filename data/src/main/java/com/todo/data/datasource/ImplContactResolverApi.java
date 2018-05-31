@@ -1,13 +1,18 @@
 package com.todo.data.datasource;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.todo.data.entity.ContactEntity;
 import com.todo.data.entity.Task;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,31 +32,75 @@ public class ImplContactResolverApi implements IContactDataStore {
         this.context = context;
     }
 
+    public InputStream openPhoto(long contactId) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+        Log.d(TAG, "openPhoto: " + contactUri);
+        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        Cursor cursor = context.getContentResolver().query(photoUri, new String[] {
+                ContactsContract.Contacts.Photo.PHOTO
+        }, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        try {
+            if (cursor.moveToFirst()) {
+                byte[] data = cursor.getBlob(0);
+                if (data != null) {
+                    return new ByteArrayInputStream(data);
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+        return null;
+    }
+
+    public String thumbnailByContactId(String contactId) {
+        String uri = null;
+        if (contactId != null) {
+            ContentResolver cr = context.getContentResolver();
+            String[] projection = new String[] {
+                    ContactsContract.CommonDataKinds.Phone.PHOTO_URI,
+                    ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI
+            };
+            Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, projection, ContactsContract.CommonDataKinds.Phone._ID + " = ?",
+                    new String[] {
+                            contactId
+                    }, null);
+            String imageUri = null;
+            String thumbnailUri = null;
+            while (cur.moveToNext()) {
+                imageUri = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
+                thumbnailUri = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI));
+                Log.d(TAG, "thumbnailByContactId: " + thumbnailUri);
+            }
+            uri = thumbnailUri != null ? thumbnailUri : imageUri;
+        }
+        return uri;
+    }
+
     @Override
-    public Observable<List<ContactEntity>> getList() {
+    public Observable < List < ContactEntity >> getList() {
         return Observable
-                .create(new ObservableOnSubscribe<List<ContactEntity>>() {
+                .create(new ObservableOnSubscribe < List < ContactEntity >> () {
                     @Override
-                    public void subscribe(ObservableEmitter<List<ContactEntity>> emitter) throws Exception {
+                    public void subscribe(ObservableEmitter < List < ContactEntity >> emitter) throws Exception {
                         Cursor cursor = context
                                 .getContentResolver()
                                 .query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
                         if (cursor != null) {
                             while (cursor.moveToNext()) {
-
                                 String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                                getImageById(contactId);
-
+                                //getImageById(contactId);
+                                //getEmailbyId(contactId);
+                                openPhoto(Long.valueOf(contactId));
+                                //thumbnailByContactId(contactId);
                             }
-
                             cursor.close();
-
                         }
-
                         emitter.onComplete();
-
                     }
 
 
@@ -61,7 +110,10 @@ public class ImplContactResolverApi implements IContactDataStore {
 
     public void getNoteById(String id) {
         String noteWhere = ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?";
-        String[] noteWhereParams = new String[]{id, ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE};
+        String[] noteWhereParams = new String[] {
+                id,
+                ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE
+        };
         Cursor noteCur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null, noteWhere, noteWhereParams, null);
 
         if (noteCur != null && noteCur.moveToFirst()) {
@@ -71,7 +123,7 @@ public class ImplContactResolverApi implements IContactDataStore {
 
     }
 
-    public void getPhoneNumber(String id){
+    public void getPhoneNumber(String id) {
         Cursor cursorPhone = context
                 .getContentResolver()
                 .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
@@ -103,7 +155,7 @@ public class ImplContactResolverApi implements IContactDataStore {
 
     }
 
-    public void getAddressById(String id){
+    public void getAddressById(String id) {
         Cursor postalCursor = context
                 .getContentResolver()
                 .query(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_URI, null, ContactsContract.Data.CONTACT_ID + " = " + id, null, null);
@@ -125,7 +177,7 @@ public class ImplContactResolverApi implements IContactDataStore {
                         Log.d(TAG, "OTHER address" + street);
                         break;
                     case ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK:
-                        Log.d(TAG, "WORK address"  + street);
+                        Log.d(TAG, "WORK address" + street);
                         break;
                 }
             }
@@ -135,15 +187,18 @@ public class ImplContactResolverApi implements IContactDataStore {
     }
 
 
-    public void getImageById(String id){
+    public void getImageById(String id) {
         String imWhere = ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?";
-        String[] imWhereParams = new String[]{id, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE};
+        String[] imWhereParams = new String[] {
+                id,
+                ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE
+        };
         Cursor imCur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI,
                 null, imWhere, imWhereParams, null);
 
         if (imCur != null && imCur.moveToFirst()) {
             String imName = imCur.getString(imCur.getColumnIndex(ContactsContract.CommonDataKinds.Im.DATA));
-            String imType  = imCur.getString(imCur.getColumnIndex(ContactsContract.CommonDataKinds.Im.TYPE));
+            String imType = imCur.getString(imCur.getColumnIndex(ContactsContract.CommonDataKinds.Im.TYPE));
             Log.d(TAG, "getImageById: " + imName);
             Log.d(TAG, "getImageById: " + imType);
             imCur.close();
@@ -151,7 +206,7 @@ public class ImplContactResolverApi implements IContactDataStore {
     }
 
 
-    public void getEmailbyId(int id){
+    public void getEmailbyId(String id) {
         Cursor emails = context
                 .getContentResolver()
                 .query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + id, null, null);
@@ -161,7 +216,7 @@ public class ImplContactResolverApi implements IContactDataStore {
             while (emails.moveToNext()) {
                 int emailType = emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE);
                 String email = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-                Log.d(TAG, "subscribe: home" + email);
+                Log.d(TAG, "subscribe " + email);
             }
 
             emails.close();
@@ -169,12 +224,12 @@ public class ImplContactResolverApi implements IContactDataStore {
     }
 
     @Override
-    public Observable<Task> get(int id) {
+    public Observable < Task > get(int id) {
         return null;
     }
 
     @Override
-    public Observable<Task> post(Task t) {
+    public Observable < Task > post(Task t) {
         return null;
     }
 
@@ -189,7 +244,7 @@ public class ImplContactResolverApi implements IContactDataStore {
     }
 
     @Override
-    public Observable<List<Task>> search(String keyword) {
+    public Observable < List < Task >> search(String keyword) {
         return null;
     }
 }
